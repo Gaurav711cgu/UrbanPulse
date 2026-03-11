@@ -127,8 +127,8 @@ python scripts/run_simulation.py --scenario morning_peak
 
 | Name | Role |
 |------|------|
-| Member 1 | Team Leader · AI/ML Engineer |
-| Member 2 | Data Engineer · Full Stack Dev |
+| Gaurav Kumar Nayak| Team Leader · AI/ML Engineer |
+| Mohit Paul | Data Engineer · Full Stack Dev |
 
 ---
 
