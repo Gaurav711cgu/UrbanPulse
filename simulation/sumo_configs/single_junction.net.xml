@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Single 4-way intersection for UrbanPulse RL training -->
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.83" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-200.00,-200.00,200.00,200.00" origBoundary="-200.00,-200.00,200.00,200.00" projParameter="!"/>
+
+    <!-- Edges: 4 approach + 4 departure lanes -->
+    <edge id="north_in"  from="north_node"  to="center" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="north_out" from="center" to="north_node"  priority="1" numLanes="2" speed="13.89"/>
+    <edge id="south_in"  from="south_node"  to="center" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="south_out" from="center" to="south_node"  priority="1" numLanes="2" speed="13.89"/>
+    <edge id="east_in"   from="east_node"   to="center" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="east_out"  from="center" to="east_node"   priority="1" numLanes="2" speed="13.89"/>
+    <edge id="west_in"   from="west_node"   to="center" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="west_out"  from="center" to="west_node"   priority="1" numLanes="2" speed="13.89"/>
+
+    <!-- Nodes -->
+    <junction id="center"      type="traffic_light" x="0"    y="0"    />
+    <junction id="north_node"  type="dead_end"      x="0"    y="200"  />
+    <junction id="south_node"  type="dead_end"      x="0"    y="-200" />
+    <junction id="east_node"   type="dead_end"      x="200"  y="0"    />
+    <junction id="west_node"   type="dead_end"      x="-200" y="0"    />
+
+    <!-- Traffic light logic: 4-phase cycle -->
+    <tlLogic id="center" type="static" programID="0" offset="0">
+        <phase duration="42" state="GGrrGGrr"/>  <!-- NS Green  -->
+        <phase duration="4"  state="YYrrYYrr"/>  <!-- NS Yellow -->
+        <phase duration="42" state="rrGGrrGG"/>  <!-- EW Green  -->
+        <phase duration="4"  state="rrYYrrYY"/>  <!-- EW Yellow -->
+    </tlLogic>
+
+</net>

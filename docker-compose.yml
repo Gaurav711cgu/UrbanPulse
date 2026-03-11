@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://urbanpulse:urbanpulse@postgres:5432/urbanpulse
+      - REDIS_URL=redis://redis:6379
+      - ENV=development
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+      - ./ml/weights:/app/weights
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_WS_URL=ws://localhost:8000/ws/live
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    environment:
+      - POSTGRES_USER=urbanpulse
+      - POSTGRES_PASSWORD=urbanpulse
+      - POSTGRES_DB=urbanpulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  simulation:
+    build:
+      context: ./simulation
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    profiles:
+      - simulation
+
+volumes:
+  postgres_data:

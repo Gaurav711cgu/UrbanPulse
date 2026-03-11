@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+*.log
+
+# ML / weights
+ml/weights/*.pt
+ml/weights/*.pth
+ml/weights/*.onnx
+*.pkl
+*.h5
+
+# Node
+node_modules/
+dist/
+.next/
+.vite/
+*.local
+
+# Docker
+.docker/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Secrets
+*.env
+.env.*
+secrets/
+
+# SUMO
+simulation/outputs/
+*.sumocfg.bak
