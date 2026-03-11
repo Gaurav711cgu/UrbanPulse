@@ -74,4 +74,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker images
-        run: docker-compose build --no-cache
+        run: docker compose build --no-cache
